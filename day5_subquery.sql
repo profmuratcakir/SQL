@@ -40,35 +40,80 @@
   sirkette calisan personelin isimlerini ve maaşlarını listeleyin
  -----------------------------------------------------------------------------*/ 
  
-  SELECT isim,maas,sirket FROM personel
-  WHERE sirket IN(SELECT sirket_adi FROM sirketler  
-                  WHERE personel_sayisi > 15000);
- 
- 
+    SELECT isim,maas,sirket FROM personel
+    WHERE sirket IN(SELECT sirket_adi FROM sirketler  
+                    WHERE personel_sayisi > 15000);
  /* ----------------------------------------------------------------------------
   ORNEK2: sirket_id’si 101’den büyük olan şirket çalışanlarının isim, maaş ve 
   şehirlerini listeleyiniz. 
- -----------------------------------------------------------------------------*/
- 
-/* -----------------------------------------------------------------------------
-  ORNEK3:  Ankara’da personeli olan şirketlerin şirket id'lerini ve personel 
-  sayılarını listeleyiniz 
- -----------------------------------------------------------------------------*/ 
- 
+  
+  -----------------------------------------------------------------------------*/
+   SELECT isim, maas, sehir FROM personel
+   WHERE sirket IN(SELECT sirket_adi FROM sirketler
+                   WHERE sirket_id > 101);
    
-/* -----------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------
+  ORNEK3: Ankara’da personeli olan şirketlerin şirket id'lerini ve personel 
+  sayılarını listeleyiniz.
+  
+  -----------------------------------------------------------------------------*/ 
+   SELECT sirket_id, personel_sayisi FROM sirketler
+   
+   WHERE sirket_adi IN (SELECT sirket FROM personel 
+                        WHERE sehir = 'Ankara');
+   
+  /* -----------------------------------------------------------------------------
   ORNEK4: Her şirketin ismini, personel sayısını ve o şirkete ait personelin
   toplam maaşını listeleyen bir Sorgu yazınız.
  -----------------------------------------------------------------------------*/
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+       
+ /* ===================== AGGREGATE METOT KULLANIMI ===========================
 
+    Aggregate Metotları(SUM,COUNT, MIN,MAX, AVG) Subquery içinde kullanılabilir.
+    Ancak, Sorgu tek bir değer döndüryor olmalıdır.
+
+==============================================================================*/   
+    
+    SELECT sirket_adi, personel_sayisi, (SELECT SUM(maas) FROM personel
+                                      WHERE  sirket = sirketler.sirket_adi) AS toplam_maas
+                                     
+    FROM sirketler;
+ 
+/* -----------------------------------------------------------------------------
+  ORNEK5: Her şirketin ismini, personel sayısını ve o şirkete ait personelin
+  ortalama maaşını listeleyen bir Sorgu yazınız.
+ -----------------------------------------------------------------------------*/
+ 
+    SELECT sirket_adi, personel_sayisi, (SELECT ROUND(AVG(maas)) FROM personel
+                                        WHERE  sirket = sirketler.sirket_adi) AS ort_maas
+                                     
+    FROM sirketler;
+    
+ /* ----------------------------------------------------------------------------
+  ORNEK6: Her şirketin ismini, personel sayısını ve o şirkete ait personelin
+  maksimum ve minumum maaşını listeleyen bir Sorgu yazınız.
+ -----------------------------------------------------------------------------*/          
+    
+    SELECT sirket_adi, personel_sayisi, (SELECT MAX(maas) FROM personel
+                                        WHERE sirket_adi=sirket) AS max_maas, 
+                                        (SELECT MIN (maas) FROM personel 
+                                        WHERE sirket_adi=sirket) AS min_maas
+                                       
+    FROM sirketler;
+    
+      
+/* -----------------------------------------------------------------------------
+  ORNEK7: Her sirketin id’sini, ismini ve toplam kaç şehirde bulunduğunu 
+  listeleyen bir SORGU yazınız.
+ -----------------------------------------------------------------------------*/
+    SELECT sirket_id, sirket_adi, ( SELECT COUNT(sehir) FROM personel
+                                    WHERE sirket = sirketler.sirket_adi) AS sehir_sayisi
+    
+    FROM sirketler;
+    
+    
+    
+    
+    
+    
   
