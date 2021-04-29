@@ -122,9 +122,9 @@
 /* -----------------------------------------------------------------------------
   ORNEK2: satılan meyve ve isimlerin farklı olanlarını listeyen sorguyu yazınız.
 ------------------------------------------------------------------------------*/
-     SELECT DISTINCT urun_adi,isim   -- 2 sutun icin beraber olarak
-                                     --benzerli olanları cikariyor.
-     FROM MANAV; 
+     SELECT DISTINCT urun_adi,isim   -- 2 sutun icin beraber degerlendirirek
+                                     -- benzerli olanları cikariyor.
+     FROM manav; 
      
 /* ----------------------------------------------------------------------------
   ORNEK3: satılan meyvelerin urun_mikarlarinin benzersiz  olanlarının 
@@ -132,10 +132,7 @@
 -----------------------------------------------------------------------------*/     
      SELECT SUM(DISTINCT urun_miktari) AS urun_sayisi 
      FROM manav;
-     
-  
-     
-     
+      
      
      
      
