@@ -66,3 +66,107 @@
   siparis_id ve siparis_tarihleri listeleyen bir sorgu yaziniz.
 ------------------------------------------------------------------------------*/ 
     
+    SELECT s.sirket_isim, sp.siparis_id, sp.siparis_tarihi, sp.sirket_id
+    FROM sirketler s
+    FULL JOIN siparisler sp
+    ON s.sirket_id = sp.sirket_id;
+    
+    -- FULL Join'de iki tabloda var olan tum satirlar gosterilir.
+    -- Bir olupda digerlerine olmayan alanlar bo birakildi.
+    -- Join isleminde genelde iki tablodaki ortak olarak bulunan sutun, ON 
+    -- cumleciginde kosul yapisi kullanilir.
+    
+    
+      
+ /*=============================== INNER JOIN  ==================================
+    
+    Iki tablonun kesisim kumesi ile yeni bir tablo olusturmak icin kullanilir.
+    
+    Syntax
+    -----------
+    SELECT sutun1,sutun2....sutunN
+    FROM tablo1 
+    INNER JOIN tablo2
+    ON tablo1.sutun = tablo2.sutun;
+
+================================================================================  
+    
+  
+/* -----------------------------------------------------------------------------
+  ORNEK2: Iki Tabloda sirket_id’si ayni olanlarin sirket_ismi, siparis_id ve 
+  siparis_tarihleri listeleyen bir sorgu yaziniz.
+------------------------------------------------------------------------------*/  
+    
+    SELECT s.sirket_isim, sp.siparis_id, sp.siparis_tarihi, sp.sirket_id
+    FROM sirketler s
+    INNER JOIN siparisler sp
+    ON s.sirket_id = sp.sirket_id;
+    
+    -- INNER JOIN ile sadece iki tabloki ortak olan satilar secilir.
+    -- Diger ifadeyle iki tablodaki ortak olan sirket_id degerleri icin ilgili 
+    -- sutunlar listenir.
+    
+    -- INNER anahtar kelimesi opsiyoneldir.
+    
+        
+/*=============================== LEFT JOIN  ==================================
+    
+    LEFT JOIN, 1. tablodan (sol tablo) SELECT ile ifade edilen sutunlara ait tum
+    satirlari getirir. 
+    Ancak, diger tablodan sadece ON ile belirtilen kosula uyan satirlari getirir. 
+        
+    Syntax
+    -----------
+    SELECT sutun1,sutun2....sutunN
+    FROM tablo1 
+    LEFT JOIN tablo2
+    ON tablo1.sutun = tablo2.sutun;
+
+==============================================================================*/  
+            
+/* -----------------------------------------------------------------------------
+  ORNEK3: sirketler tablosundaki tum sirketleri ve bu sirketlere ait olan 
+  siparis_id ve siparis_tarihleri listeleyen bir sorgu yaziniz.
+------------------------------------------------------------------------------*/   
+    
+    SELECT s.sirket_isim, sp.siparis_id, sp.siparis_tarihi, sp.sirket_id, s.sirket_id
+    FROM sirketler s
+    LEFT JOIN siparisler sp
+    ON s.sirket_id = sp.sirket_id;
+    
+    -- Left Join’de ilk tablodaki tum satirlar gosterilir.
+    -- Ilk tablodaki satirlara 2.tablodan kosula uyan ortak satirlar gosterilir
+    -- ancak ortak olmayan kisimlar bos kalir
+          
+/*=============================== RIGHT JOIN  ==================================
+    
+    RIGHT JOIN, 2. tablodan (sag tablo) SELECT ile ifade edilen sutunlara ait tum
+    satirlari getirir. 
+    Ancak, diger tablodan sadece ON ile belirtilen kosula uyan satirlari getirir. 
+        
+    Syntax
+    -----------
+    SELECT sutun1,sutun2....sutunN
+    FROM tablo1 
+    RIGHT JOIN tablo2
+    ON tablo1.sutun = tablo2.sutun;
+
+==============================================================================*/   
+      
+/* -----------------------------------------------------------------------------
+  ORNEK4: siparisler tablosundaki tum siparis_id ve siparis_tarihleri ile 
+  bunlara karşılık gelen sirket_isimlerini listeleyen bir sorgu yaziniz.
+------------------------------------------------------------------------------*/   
+     
+    SELECT s.sirket_isim, sp.siparis_id, sp.siparis_tarihi, sp.sirket_id
+    FROM sirketler s
+    RIGHT JOIN siparisler sp
+    ON s.sirket_id = sp.sirket_id;
+    
+    -- Right Join’de 2. tablodaki tum satirlar gosterilir.
+    -- 2 tablodaki satirlara 1.tablodan kosula uyan ortak satirlar gosterilir
+    -- ancak ortak olmayan kisimlar bos kalirir.
+    
+    
+    
+          
