@@ -69,28 +69,43 @@
 	 WHERE B.bolum_ıd IN (40,30,50)
 	 ORDER BY B.bolum_isim;
 
-	
 /* -----------------------------------------------------------------------------
   ORNEK3: Tüm bolumlerde calisan personelin isimlerini, bolum isimlerini ve 
   maaslarini bolum ve maas siraali listeleyiniz. 
   NOT: calisani olmasa bile bolum ismi gosterilmelidir.
-------------------------------------------------------------------------------*/
-	
-	
-	
+------------------------------------------------------------------------------*/  
+
+    SELECT b.bolum_isim, p.personel_isim, p.maas
+    FROM   personel p
+    FULL JOIN bolumler b 
+    ON  p.bolum_id = b.bolum_id
+    ORDER BY b.bolum_id,p.maas DESC;
+
 /* -----------------------------------------------------------------------------
   ORNEK4: SATIS ve MUDURLUK bolumlerinde calisan personelin maaslari 2000'den 
   buyuk olanlarinin isim,bolum ve maas bilgilerini bolume ve isme gore
   siralayarak listeleyiniz.
-------------------------------------------------------------------------------*/ 
-	
-	
-	
-	
+------------------------------------------------------------------------------*/   
+    SELECT b.bolum_isim, p.personel_isim, p.maas 
+    FROM bolumler b
+    JOIN personel p 
+    ON b.bolum_id = p.bolum_id AND p.maas >= 2000
+    WHERE  b.bolum_id IN(20,30) 
+    ORDER BY b.bolum_id,p.personel_isim;
+ 
 /* -----------------------------------------------------------------------------
-  ORNEK5: MUDUR’u Mesut veya Emine olan personelin bolumlerini,isimlerini,  
+  ORNEK5: MUDUR'u Mesut veya Emine olan personelin bolumlerini,isimlerini,  
   maaslarini ve mudur isimlerini maas siralı olarak (Çoktan aza) listeleyiniz.
-------------------------------------------------------------------------------*/
+------------------------------------------------------------------------------*/   
 
-
+    SELECT b.bolum_isim, p.personel_isim,p.maas, 
+                    (SELECT personel_isim FROM personel 
+                     WHERE  personel_id = p.mudur_id) as mudur_adi 
+    FROM bolumler b
+    JOIN personel p 
+    ON b.bolum_id = p.bolum_id
+    WHERE  p.mudur_id IN(7788,7698) 
+    ORDER BY p.maas DESC;
+  
+       
 
